@@ -1,7 +1,7 @@
 base   mllist
 author Adrian Sai-wah Tam
 email  adrian.sw.tam@gmail.com
-date   2007-06-06
+date   2018-11-03
 name   Multiline list plugin
 desc   Allows a list item to break into multiple lines with indentation on non-bullet lines
 url    http://www.dokuwiki.org/plugin:mllist
