@@ -12,6 +12,8 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'syntax.php');
 
+use dokuwiki\Parsing\Handler\Lists;
+
 /**
  * All DokuWiki plugins to extend the parser/rendering mechanism
  * need to inherit from this class
@@ -54,15 +56,15 @@ class syntax_plugin_mllist extends DokuWiki_Syntax_Plugin {
   function handle($match, $state, $pos, $handler){
     switch ($state){
       case DOKU_LEXER_ENTER:
-        $ReWriter = new Doku_Handler_List($handler->CallWriter);
-        $handler->CallWriter = & $ReWriter;
+        $ReWriter = new Lists($handler->getCallWriter());
+        $handler->setCallWriter($ReWriter);
         $handler->_addCall('list_open', array($match), $pos);
         break;
       case DOKU_LEXER_EXIT:
         $handler->_addCall('list_close', array(), $pos);
-        $handler->CallWriter->process();
-        $ReWriter = & $handler->CallWriter;
-        $handler->CallWriter = & $ReWriter->CallWriter;
+        $handler->getCallWriter()->process();
+        $ReWriter = & $handler->getCallWriter();
+        $handler->setCallWriter($ReWriter->getCallWriter());
         break;
       case DOKU_LEXER_MATCHED:
         if (preg_match("/^\s+$/",$match)) break;
