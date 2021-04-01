@@ -53,7 +53,7 @@ class syntax_plugin_mllist extends DokuWiki_Syntax_Plugin {
     $this->Lexer->addExitPattern('\n','plugin_mllist');
   }
 
-  function handle($match, $state, $pos, $handler){
+  function handle($match, $state, $pos, Doku_Handler $handler){
     switch ($state){
       case DOKU_LEXER_ENTER:
         $ReWriter = new Lists($handler->getCallWriter());
@@ -78,7 +78,7 @@ class syntax_plugin_mllist extends DokuWiki_Syntax_Plugin {
     return true;
   }
 
-  function render($mode, $renderer, $data){
+  function render($mode, Doku_Renderer $renderer, $data){
     return true;
   }
 }
